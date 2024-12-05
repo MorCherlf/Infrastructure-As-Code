@@ -1,0 +1,78 @@
+---
+  - name: Install Docker, clone app repo, and deploy the application
+    hosts: all
+    become: true
+  
+    tasks:
+      - name: Update APT package index
+        apt:
+          update_cache: yes
+  
+      - name: Install required packages for Docker
+        apt:
+          name:
+            - apt-transport-https
+            - ca-certificates
+            - curl
+            - software-properties-common
+            - git
+          state: present
+  
+      - name: Add Docker's official GPG key
+        apt_key:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+  
+      - name: Set up Docker repository
+        apt_repository:
+          repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+          state: present
+  
+      - name: Install Docker CE
+        apt:
+          name: docker-ce
+          state: latest
+  
+      - name: Ensure Docker service is running and enabled
+        service:
+          name: docker
+          state: started
+          enabled: true
+  
+      - name: Download Docker Compose binary
+        get_url:
+          url: "https://github.com/docker/compose/releases/download/v2.30.3/docker-compose-linux-x86_64"
+          dest: /usr/local/bin/docker-compose
+          mode: '0755'
+  
+      - name: Ensure docker-compose is executable
+        file:
+          path: /usr/local/bin/docker-compose
+          mode: '0755'
+          state: file
+  
+      - name: Clone the Django app repository
+        git:
+          repo: https://github.com/mdn/django-locallibrary-tutorial.git
+          dest: /opt/django-locallibrary-tutorial
+          update: yes
+  
+      - name: Create Docker Compose file
+        copy:
+          dest: /opt/django-locallibrary-tutorial/docker-compose.yml
+          content: |
+            version: '3'
+            services:
+              web:
+                image: docker.io/timurbabs/django
+                ports:
+                  - "8000:8000"
+                volumes:
+                  - .:/code
+                command: python3 manage.py runserver 0.0.0.0:8000
+  
+      - name: Start the application
+        command: docker-compose up -d
+        args:
+          chdir: /opt/django-locallibrary-tutorial
+  
