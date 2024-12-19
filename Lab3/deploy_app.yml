@@ -1,0 +1,59 @@
+---
+- name: Deploy Django application with Nginx and Docker
+  hosts: all
+  become: true
+
+  roles:
+    - docker
+    - nginx
+
+  tasks:
+    - name: Clone the Django app repository
+      ansible.builtin.git:
+        repo: https://github.com/mdn/django-locallibrary-tutorial.git
+        dest: /opt/django-locallibrary-tutorial
+        update: yes
+
+    - name: Create Docker Compose file
+      ansible.builtin.copy:
+        dest: /opt/django-locallibrary-tutorial/docker-compose.yml
+        content: |
+          version: '3'
+          services:
+            web:
+              image: docker.io/timurbabs/django
+              ports:
+                - "8000:8000"
+              volumes:
+                - .:/code
+                - ./staticfiles:/code/staticfiles
+              command: python3 manage.py runserver 0.0.0.0:8000
+
+    - name: Start the Django application
+      ansible.builtin.command:
+        cmd: docker-compose up -d
+        chdir: /opt/django-locallibrary-tutorial
+
+    - name: Verify that Django container is running
+      ansible.builtin.shell: docker ps --filter "name=web" --format "{{ '{{.Names}}' }}"
+      register: container_check
+      retries: 5
+      delay: 5
+      until: container_check.stdout.find("web") != -1
+
+    - name: Wait for the Django container to be ready
+      ansible.builtin.shell: docker ps --filter "name=web" --format "{{ '{{.Names}}' }}"
+      register: container_ready
+      retries: 10
+      delay: 10
+      until: container_ready.stdout.find("web") != -1
+
+    - name: Collect static files for Django in Docker container
+      ansible.builtin.shell: |
+        docker ps --filter "name=web" --format "{{ '{{.Names}}' }}" | head -n 1 | \
+        xargs -I {} docker exec {} python3 manage.py collectstatic --noinput
+      register: collectstatic_result
+      retries: 5
+      delay: 10
+      failed_when: collectstatic_result.rc != 0 and "No such container" not in collectstatic_result.stderr
+      ignore_errors: true
