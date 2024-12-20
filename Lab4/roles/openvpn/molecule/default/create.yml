@@ -15,8 +15,8 @@
               address: "{{ item.address }}"
               user: "{{ item.user }}"
               port: "{{ item.port | default(22) }}"
-              identity_file: "{{ item.private_key }}"
-          loop: "{{ servers }}"
+              identity_file: "{{ item.identity_file }}"
+          loop: "{{ server.results }}"
           register: instance_config_dict
 
         - name: Convert instance config dict to a list
