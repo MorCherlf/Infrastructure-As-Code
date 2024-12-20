@@ -1,0 +1,30 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: srv1
+    ansible_host: "{{ item.address }}"
+    ansible_user: "{{ item.user }}"
+    ansible_ssh_private_key_file: "{{ item.private_key }}"
+    loop: "{{ servers }}"
+    vars:
+      openvpn_port: "{{ openvpn_port }}"
+
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all: "{{ lookup('file', 'group_vars/all.yml') | from_yaml }}"
+
+scenario:
+  name: default
+  test_sequence:
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - destroy

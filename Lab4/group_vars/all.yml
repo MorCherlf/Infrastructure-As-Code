@@ -1,0 +1,31 @@
+openvpn_port: 1194
+openvpn_protocol: udp
+openvpn_network: 10.8.0.0
+openvpn_mask: 255.255.255.0
+openvpn_dh_file: /etc/openvpn/dh.pem
+openvpn_status_log: /var/log/openvpn-status.log
+openvpn_log: /var/log/openvpn.log
+openvpn_tls_auth_key: /etc/openvpn/ta.key
+openvpn_verbosity: 3
+
+servers:
+  - name: srv1
+    address: 100.117.33.35
+    user: vagrant
+    private_key: ~/.ssh/private_key_srv1
+  - name: srv2
+    address: 100.117.57.214
+    user: vagrant
+    private_key: ~/.ssh/private_key_srv2
+  - name: srv3
+    address: 100.117.45.240
+    user: vagrant
+    private_key: ~/.ssh/private_key_srv3
+  - name: srv4
+    address: 100.117.54.51
+    user: vagrant
+    private_key: ~/.ssh/private_key_srv4
+  - name: srv5
+    address: 100.117.44.92
+    user: vagrant
+    private_key: ~/.ssh/private_key_srv5
