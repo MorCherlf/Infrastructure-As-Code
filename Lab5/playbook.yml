@@ -1,0 +1,16 @@
+---
+- name: Configure PostgreSQL Cluster
+  hosts: all
+  become: true
+  vars:
+    postgresql_version: 12
+    data_directory: /var/lib/postgresql/12/main
+    postgresql_users:
+      - name: app_user
+        password: app_password
+    postgresql_databases:
+      - name: app_db
+        owner: app_user
+
+  roles:
+    - role: postgresql

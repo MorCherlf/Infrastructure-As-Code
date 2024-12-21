@@ -1,0 +1,9 @@
+data_directory: /custom/postgresql/data
+
+postgresql_users:
+  - name: custom_user
+    password: custom_password
+
+postgresql_databases:
+  - name: custom_db
+    owner: custom_user
