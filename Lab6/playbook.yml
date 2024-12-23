@@ -1,0 +1,11 @@
+---
+- name: Main Playbook for Infrastructure Deployment
+  hosts: all
+  become: yes
+  roles:
+    - role: docker_deploy
+    - role: api_deploy
+    - role: prometheus
+    - role: loki
+    - role: grafana
+    - role: prometheus_email_alert
