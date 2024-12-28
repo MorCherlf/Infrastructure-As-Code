@@ -1,4 +1,5 @@
 ---
-- src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+- src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/docker.git
   version: main
   name: docker
+  scm: git

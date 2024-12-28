@@ -5,3 +5,20 @@
   
     roles:
       - docker
+    
+    tasks:
+      - name: Clone the Django app repository
+        git:
+          repo: "{{ django_app_repo_url }}"
+          dest: "{{ django_app_path }}"
+          update: "{{ django_app_git_update }}"
+
+      - name: Create Docker Compose file
+        template:
+          src: inventory/templates/docker-compose.yml.j2
+          dest: "{{ django_app_path }}/docker-compose.yml"
+
+      - name: Start the application
+        command: docker-compose up -d
+        args:
+          chdir: "{{ django_app_path }}"

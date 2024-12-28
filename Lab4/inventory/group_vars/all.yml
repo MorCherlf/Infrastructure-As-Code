@@ -18,11 +18,11 @@ servers:
     user: vagrant
     private_key: ~/.ssh/private_key_srv2
   - name: srv3
-    address: 100.117.45.240
+    address: 100.117.40.62
     user: vagrant
     private_key: ~/.ssh/private_key_srv3
   - name: srv4
-    address: 100.117.54.51
+    address: 100.117.43.202
     user: vagrant
     private_key: ~/.ssh/private_key_srv4
   - name: srv5

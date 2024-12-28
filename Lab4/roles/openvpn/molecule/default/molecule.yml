@@ -14,12 +14,12 @@ platforms:
     ansible_ssh_private_key_file: ~/.ssh/private_key_srv2
 
   - name: srv3
-    address: 100.117.45.240
+    address: 100.117.40.62
     ansible_user: vagrant
     ansible_ssh_private_key_file: ~/.ssh/private_key_srv3
 
   - name: srv4
-    address: 100.117.54.51
+    address: 100.117.43.202
     ansible_user: vagrant
     ansible_ssh_private_key_file: ~/.ssh/private_key_srv4
 
@@ -46,11 +46,11 @@ provisioner:
             ansible_user: vagrant
             ansible_ssh_private_key_file: ~/.ssh/private_key_srv2
           srv3:
-            ansible_host: 100.117.45.240
+            ansible_host: 100.117.40.62
             ansible_user: vagrant
             ansible_ssh_private_key_file: ~/.ssh/private_key_srv3
           srv4:
-            ansible_host: 100.117.54.51
+            ansible_host: 100.117.43.202
             ansible_user: vagrant
             ansible_ssh_private_key_file: ~/.ssh/private_key_srv4
           srv5:

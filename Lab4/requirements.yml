@@ -1,5 +1,6 @@
 ---
 roles:
   - name: openvpn
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/openvpn.git
     scm: git
+    path: openvpn

@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    image: {{ django_docker_image }}
+    ports:
+      - "{{ django_app_port | default(8000) }}:{{ django_app_port | default(8000) }}"
+    volumes:
+      - "{{ django_app_path }}:/app"
+    command: >
+      sh -c "pip install -r requirements.txt &&
+         python3 manage.py runserver 0.0.0.0:{{ django_app_port | default(8000) }}"

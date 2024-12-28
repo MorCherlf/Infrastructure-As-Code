@@ -1,8 +1,11 @@
 ---
 roles:
   - name: docker
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/docker.git
     scm: git
+    path: docker
+
   - name: nginx
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/nginx.git
     scm: git
+    path: nginx

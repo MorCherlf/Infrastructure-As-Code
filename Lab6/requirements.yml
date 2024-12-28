@@ -1,25 +1,25 @@
 ---
 roles:
   - name: docker_deploy
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/docker_deploy.git
     scm: git
 
   - name: api_deploy
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/api_deploy.git
     scm: git
 
   - name: prometheus
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/prometheus.git
     scm: git
 
   - name: loki
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/loki.git
     scm: git
 
   - name: grafana
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/grafana.git
     scm: git
 
   - name: prometheus_email_alert
-    src: https://github.com/MorCherlf/InfrastructureAsCode-Ansible-Roles.git
+    src: https://gitlab.com/morcherlfy/infratructureascode-ansible-roles/prometheus_email_alert.git
     scm: git
